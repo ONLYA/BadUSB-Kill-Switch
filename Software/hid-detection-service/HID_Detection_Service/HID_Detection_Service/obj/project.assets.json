@@ -1513,11 +1513,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service\\HID_Detection_Service.csproj",
+      "projectUniqueName": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service\\HID_Detection_Service.csproj",
       "projectName": "HID_Detection_Service",
-      "projectPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service\\HID_Detection_Service.csproj",
+      "projectPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service\\HID_Detection_Service.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service\\obj\\",
+      "outputPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
