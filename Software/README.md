@@ -18,4 +18,4 @@ Back-end has 2 keys to be achieved:
 2. Detect whether there is any HID devices other than those listed at the service start when device plug-in is detected
 
 
-[1]:\resources\software_structure.png "The structure of the software"
+[1]:/resources/software_structure.png "The structure of the software"
