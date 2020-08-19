@@ -106,8 +106,8 @@ def p1(conn):   # Tkinter Process
         socket_recv = context.socket(zmq.PULL)
         socket_recv.connect("tcp://127.0.0.1:5487")
         while True:
-            temp = socket_recv.recv_multipart()  # This will be a list as => [event_id, *content]
-            if temp[0] == 0:    # Acknowledge possible HID Intrusion
+            temp = socket_recv.recv_string()
+            if temp == 0:    # Acknowledge possible HID Intrusion
                 threading.Thread(target=block.block, args=(queue,)).start()
                 notification.notify(
                     title='BadUSB Detected',
@@ -116,7 +116,7 @@ def p1(conn):   # Tkinter Process
                     app_icon='resources/icon1.' + ('ico' if platform.system() == 'Windows' else 'png')
                 )
                 emergency()
-            elif temp[0] == 1:  # Acknowledge Background Service ON
+            elif temp == '1':  # Acknowledge Background Service ON
                 notification.notify(
                     title='Service Started',
                     message='Now all the HID devices other than currently connected ones will be blocked.',
@@ -139,9 +139,9 @@ def p1(conn):   # Tkinter Process
         while True:
             temp = socket.recv_pyobj()
             if temp == 1:
-                socket_send.send_string("True")
+                socket_send.send_string("true")
             elif temp == 2:
-                socket_send.send_string("False")
+                socket_send.send_string("false")
 
     tt1 = threading.Thread(target=t1)
     tt2 = threading.Thread(target=t2)
