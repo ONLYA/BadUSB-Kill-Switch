@@ -107,7 +107,7 @@ def p1(conn):   # Tkinter Process
         socket_recv.connect("tcp://127.0.0.1:5487")
         while True:
             temp = socket_recv.recv_string()
-            if temp == 0:    # Acknowledge possible HID Intrusion
+            if temp == "0":    # Acknowledge possible HID Intrusion
                 threading.Thread(target=block.block, args=(queue,)).start()
                 notification.notify(
                     title='BadUSB Detected',
@@ -116,14 +116,14 @@ def p1(conn):   # Tkinter Process
                     app_icon='resources/icon1.' + ('ico' if platform.system() == 'Windows' else 'png')
                 )
                 emergency()
-            elif temp == '1':  # Acknowledge Background Service ON
+            elif temp == "1":  # Acknowledge Background Service ON
                 notification.notify(
                     title='Service Started',
                     message='Now all the HID devices other than currently connected ones will be blocked.',
                     app_name=app_name,
                     app_icon='resources/icon1.' + ('ico' if platform.system() == 'Windows' else 'png')
                 )
-            elif temp[0] == 2:  # Acknowledge Background Service OFF
+            elif temp == "2":  # Acknowledge Background Service OFF
                 notification.notify(
                     title='Service Started',
                     message='Now BadUSB Vulnerable.',
@@ -132,16 +132,18 @@ def p1(conn):   # Tkinter Process
                 )
 
     def t3():                # The thread to send zmq messages to C# worker service -> 5488
-        socket_send = context.socket(zmq.PUSH)
-        socket_send.connect("tcp://127.0.0.1:5488")
+        socket_send1 = context.socket(zmq.PUSH)
+        socket_send1.connect("tcp://127.0.0.1:5488")
+        socket_send2 = context.socket(zmq.PUSH)
+        socket_send2.connect("tcp://127.0.0.1:5489")
         socket = context.socket(zmq.PULL)
         socket.connect("inproc://service-transfer")
         while True:
             temp = socket.recv_pyobj()
             if temp == 1:
-                socket_send.send_string("true")
+                socket_send1.send_string("true")
             elif temp == 2:
-                socket_send.send_string("false")
+                socket_send2.send_string("false")
 
     tt1 = threading.Thread(target=t1)
     tt2 = threading.Thread(target=t2)

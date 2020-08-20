@@ -9,6 +9,7 @@ using HidSharp;
 using Usb.Events;
 using NetMQ;
 using NetMQ.Sockets;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 ///  TODO Create Thread for zmq messaging
@@ -16,22 +17,6 @@ using NetMQ.Sockets;
 
 namespace WorkerService1
 {
-    static class ZMQ_Thread
-    {
-        public static void ThreadProc()
-        {
-            // zmq messaging
-            using (var recv = new PullSocket())
-            {
-                recv.Bind("tcp://127.0.0.1:5487");
-                while (true)
-                {
-                    // DO something
-                }
-            }
-        }
-        public static Thread t = new Thread(new ThreadStart(ThreadProc));
-    }
     public class Worker : BackgroundService
     {
         static readonly IUsbEventWatcher usbEventWatcher = new UsbEventWatcher();
@@ -46,7 +31,11 @@ namespace WorkerService1
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
             // DO YOUR STUFF HERE
-            ZMQ_Thread.t.Start();   // thread start
+            using (var client = new PushSocket())
+            {
+                client.Bind("tcp:127.0.0.1:5487");
+                client.SendFrame("1");
+            }
             var allowed_devices = DeviceList.Local.GetHidDevices().ToArray();
             usbEventWatcher.UsbDeviceAdded += (_, dd) =>
             {
@@ -66,7 +55,7 @@ namespace WorkerService1
                             using (var client = new PushSocket())
                             {
                                 client.Bind("tcp://127.0.0.1:5487");
-                                client.SendFrame("1");
+                                client.SendFrame("0");
                             }
                         }
                         finally
@@ -82,6 +71,11 @@ namespace WorkerService1
         public override async Task StopAsync(CancellationToken cancellationToken)
         {
             // DO YOUR STUFF HERE
+            using (var client = new PushSocket())
+            {
+                client.Bind("tcp://127.0.0.1:5487");
+                client.SendFrame("2");
+            }
             await base.StopAsync(cancellationToken);
         }
 
@@ -107,14 +101,13 @@ namespace WorkerService1
                     _logger.LogError(e.InnerException.ToString());
                 }
                 //_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                await Task.Delay(1000, stoppingToken);
+                // await Task.Delay(1000, stoppingToken);
             }
         }
 
-        public override void Dispose()
-        {
+        //public override void Dispose()
+        //{
             // DO YOUR STUFF HERE
-            ZMQ_Thread.t.Join();    // Join the threads at the end.
-        }
+        //}
     }
 }

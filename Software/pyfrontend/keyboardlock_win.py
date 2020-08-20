@@ -32,7 +32,10 @@ class blockInput():
             self.hm.UnhookMouse()
         except:
             pass
-        win32api.PostThreadMessage(thread_id, win32con.WM_QUIT, 0, 0)
+        try:
+            win32api.PostThreadMessage(thread_id, win32con.WM_QUIT, 0, 0)
+        except:
+            pass
 
     def block(self, queue, keyboard=True, mouse=False):
         # logging.info(" -- Block!")
