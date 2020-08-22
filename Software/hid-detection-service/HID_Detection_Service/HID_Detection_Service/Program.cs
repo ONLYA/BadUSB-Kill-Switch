@@ -15,7 +15,7 @@ namespace WorkerService1
     {
         public static void Main(string[] args)
         {
-            string[] args_backup = args;
+            //string[] args_backup = args;
             using (var client = new PullSocket())
             {
                 client.Bind("tcp://127.0.0.1:5488");
@@ -25,9 +25,11 @@ namespace WorkerService1
                     if (bool.Parse(a))
                     {
                         Console.WriteLine("START");
+                        CancellationTokenSource source = new CancellationTokenSource();
+                        CancellationToken token = source.Token;
                         Thread t = new Thread(new ParameterizedThreadStart(ThreadProc));
-                        t.Start(args_backup);
-                        CreateHostBuilder(args).Build().Run();
+                        t.Start(source);
+                        CreateHostBuilder(args).Build().RunAsync(token);//.Wait();
                         Console.WriteLine("DONE Start");
                     }
                 }
@@ -45,7 +47,8 @@ namespace WorkerService1
                 });
         public static void ThreadProc(object obj)
         {
-            string[] args = ToStringArray(obj);
+            //string[] args = ToStringArray(obj);
+            var source = obj as CancellationTokenSource;
             // zmq messaging
             using (var recv = new PullSocket())
             {
@@ -56,7 +59,9 @@ namespace WorkerService1
                     if (!bool.Parse(temp))
                     {
                         Console.WriteLine("STOP");
-                        CreateHostBuilder(args).Build().StopAsync();
+                        source.Cancel();
+                        source.Dispose();
+                        //CreateHostBuilder(args).Build().StopAsync().Wait();
                         Console.WriteLine("DONE Stop");
                         break;
                     }
@@ -88,5 +93,9 @@ namespace WorkerService1
 
             return new string[] { arg.ToString() };
         }
+    }
+    public static class ZMQConst
+    {
+        public static PushSocket client_notify = new PushSocket("@tcp://127.0.0.1:5487");  // Bind to Port 5487
     }
 }

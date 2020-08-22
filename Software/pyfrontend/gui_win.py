@@ -9,6 +9,7 @@ import subprocess
 import zmq
 from queue import Queue
 from plyer import notification
+import psutil
 
 
 app_name = 'BadUSB Kill Switch'
@@ -125,7 +126,7 @@ def p1(conn):   # Tkinter Process
                 )
             elif temp == "2":  # Acknowledge Background Service OFF
                 notification.notify(
-                    title='Service Started',
+                    title='Service Stopped',
                     message='Now BadUSB Vulnerable.',
                     app_name=app_name,
                     app_icon='resources/icon1.' + ('ico' if platform.system() == 'Windows' else 'png')
