@@ -1,0 +1,8 @@
+Pillow==7.2.0
+plyer==1.4.3
+pyHook @ file:///E:/GitHub_Repos/BadUSB-Killer-Switch/Software/pyfrontend/pyHook-1.5.1-cp37-cp37m-win32.whl
+pypiwin32==223
+pystray==0.16.0
+pywin32==228
+pyzmq==19.0.2
+six==1.15.0

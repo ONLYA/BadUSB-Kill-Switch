@@ -26,7 +26,11 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj": {
+                "projectPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -72,6 +76,16 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
+      }
+    },
+    "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj": {
+      "restore": {
+        "projectUniqueName": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj",
+        "projectName": "HID_Detection_Service_Cpp_Win",
+        "projectPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj"
+      },
+      "frameworks": {
+        "native": {}
       }
     }
   }

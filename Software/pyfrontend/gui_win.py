@@ -9,13 +9,12 @@ import subprocess
 import zmq
 from queue import Queue
 from plyer import notification
-import psutil
-
+import time
 
 app_name = 'BadUSB Kill Switch'
 
 if platform.system() == 'Windows':
-    if subprocess.run("dotnet --info", shell=True, capture_output=False).returncode == 1:
+    if subprocess.run("dotnet --info", shell=False, capture_output=False).returncode == 1:
         raise LookupError("Please install .NET 3.1 or later, or add that into PATH")
     try:
         from keyboardlock_win import blockInput
@@ -25,7 +24,7 @@ else:
     raise EnvironmentError("This app is for Windows only")
 
 # TODO Check C# Worker Service Dependency
-file = "gui_win.py"
+file = "HID_Detection_Service.exe"
 if not os.path.exists(file):
     raise ProcessLookupError(file+" NOT found. A worker service process is needed. Exiting...")
 
@@ -68,6 +67,12 @@ def p1(conn):   # Tkinter Process
             threading.Thread(target=block.unblock, args=(queue, timeout.get(),)).start()
             showinfo(message="Now the keyboard is released.")
             top.destroy()
+            subprocess.check_call(["taskkill.exe", "/im", file])
+            subprocess.Popen("ping 127.0.0.1 -n 5 > nul && {}".format(file), shell=True)
+            time.sleep(6)
+            socket_send1 = context.socket(zmq.PUSH)
+            socket_send1.connect("tcp://127.0.0.1:5488")
+            socket_send1.send_string("true")
         msg = tk.Message(top, text="Unexpected HID Intrusion detected.\n\n"
                                    "All keyboard inputs are now BLOCKED.\n\n"
                                    "Re-enable it by clicking the button below!\n\n"
@@ -82,26 +87,13 @@ def p1(conn):   # Tkinter Process
         while True:
             temp = conn.recv()
             if temp == 1:    # Quit Program
+                subprocess.run(["taskkill.exe", "/im", file])
                 root.destroy()
                 sys.exit()
             elif temp == 3:  # Toggle Service on
-                # showwarning(message="Service Starting...")
                 socket.send_pyobj(1)
-                # notification.notify(
-                #     title='Service Started',
-                #     message='Now all the HID devices other than currently connected ones will be blocked.',
-                #     app_name=app_name,
-                #     app_icon='resources/icon1.' + ('ico' if platform.system() == 'Windows' else 'png')
-                # )
             elif temp == 4:  # Toggle Service off
-                # showwarning(message="Service Stopping...")
                 socket.send_pyobj(2)
-                # notification.notify(
-                #     title='Service Stopped',
-                #     message='Now BadUSB Vulnerable',
-                #     app_name=app_name,
-                #     app_icon='resources/icon1.' + ('ico' if platform.system() == 'Windows' else 'png')
-                # )
 
     def t2():                # The thread to receive zmq messaging from C# worker service ->5487
         socket_recv = context.socket(zmq.PULL)

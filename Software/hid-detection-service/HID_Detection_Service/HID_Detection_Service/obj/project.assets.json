@@ -570,6 +570,15 @@
             "rid": "osx-x64"
           }
         }
+      },
+      "HID_Detection_Service_Cpp_Win/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/HID_Detection_Service_Cpp_Win.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HID_Detection_Service_Cpp_Win.dll": {}
+        }
       }
     }
   },
@@ -1497,10 +1506,16 @@
         "usb.events.1.1.0.nupkg.sha512",
         "usb.events.nuspec"
       ]
+    },
+    "HID_Detection_Service_Cpp_Win/1.0.0": {
+      "type": "project",
+      "path": "../HID_Detection_Service_Cpp_Win/HID_Detection_Service_Cpp_Win.vcxproj",
+      "msbuildProject": "../HID_Detection_Service_Cpp_Win/HID_Detection_Service_Cpp_Win.vcxproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "HID_Detection_Service_Cpp_Win >= 1.0.0",
       "HidSharp >= 2.1.0",
       "Microsoft.Extensions.Hosting >= 3.1.7",
       "NetMQ >= 4.0.1.4",
@@ -1532,7 +1547,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj": {
+              "projectPath": "E:\\GitHub_Repos\\BadUSB-Killer-Switch\\Software\\hid-detection-service\\HID_Detection_Service\\HID_Detection_Service_Cpp_Win\\HID_Detection_Service_Cpp_Win.vcxproj"
+            }
+          }
         }
       },
       "warningProperties": {

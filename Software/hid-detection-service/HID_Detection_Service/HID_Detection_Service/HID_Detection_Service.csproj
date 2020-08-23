@@ -1,8 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>dotnet-HID_Detection_Service-B59B08FA-0AE7-4794-B622-F9EB4AD845CD</UserSecretsId>
+    <OutputType>WinExe</OutputType>
+    <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationIcon>icon1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +13,9 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
     <PackageReference Include="NetMQ" Version="4.0.1.4" />
     <PackageReference Include="Usb.Events" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HID_Detection_Service_Cpp_Win\HID_Detection_Service_Cpp_Win.vcxproj" />
   </ItemGroup>
 </Project>
