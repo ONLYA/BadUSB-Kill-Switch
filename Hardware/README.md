@@ -6,8 +6,8 @@ If the inserted USB device is recognised as an HID, the **red** light will be li
 
 This device will keep detecting the USB protocol during the whole insertion in order to prevent possible remote or delayed attacks.
 
-## Electronics (Folder)
+## Electronics [(Folder)](/Hardware/Electronics)
 It contains the PCB and circuit design files of this device. Now it is completed.
 
-## firmware (Folder)
+## firmware [(Folder)](/Hardware/firmware)
 It contains the firmware of the device so that it will work as described above. Now it is NOT completed.
