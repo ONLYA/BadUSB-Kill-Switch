@@ -30,6 +30,10 @@ extern "C" {
  * @{
  */
 
+#define EN_OUT	PORT_PA31
+#define LED_DET	PORT_PA07
+#define LED_ON	PORT_PA06
+
 void system_board_init(void);
 
 /** Name string macro */

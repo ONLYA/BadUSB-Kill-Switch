@@ -243,8 +243,8 @@
 <smd name="2" x="1" y="10.125" dx="2" dy="1.2" layer="1" rot="R90"/>
 <smd name="3" x="-1" y="10.125" dx="2" dy="1.2" layer="1" rot="R90"/>
 <smd name="4" x="-3.5" y="10.125" dx="2" dy="1.2" layer="1" rot="R90"/>
-<pad name="MH1" x="-5.7" y="7.525" drill="2.89" diameter="4"/>
-<pad name="MH2" x="5.7" y="7.525" drill="2.89" diameter="4"/>
+<pad name="MH1" x="-5.7" y="7.525" drill="2.89" diameter="3.81"/>
+<pad name="MH2" x="5.7" y="7.525" drill="2.89" diameter="3.81"/>
 <hole x="-2.25" y="7.525" drill="1.55"/>
 <hole x="2.25" y="7.525" drill="1.55"/>
 <text x="0" y="0.5" size="1.27" layer="25" align="center">&gt;NAME</text>

@@ -45,13 +45,13 @@
  */
 
 //! Array of UHI APIs Define the list of UHI supported by USB host.
-#define USB_HOST_UHI        UHI_HID_MOUSE
+#define USB_HOST_UHI	UHI_HID_MOUSE, UHI_HID_KEYBOARD
 
 //! Maximum current allowed on Vbus (mA)
 #define USB_HOST_POWER_MAX  500
 
 //! Authorize the USB HUB support
-// #define USB_HOST_HUB_SUPPORT
+//#define USB_HOST_HUB_SUPPORT
 
 //! Authorize the USB host to run in High Speed
 #if (UC3A3 || UC3A4)
@@ -97,7 +97,10 @@
 
 //@}
 
+#include <uhc.h>
 
+bool my_callback_keyboard_change(uhc_device_t* dev, bool b_plug);
+bool my_callback_mouse_change(uhc_device_t* dev, bool b_plug);
 
 /**
  * USB Interface Configuration
@@ -107,16 +110,23 @@
  * Configuration of HID Mouse interface
  * @{
  */
-#define UHI_HID_MOUSE_CHANGE(dev,b_plug)
+#define UHI_HID_MOUSE_CHANGE(dev,b_plug)	my_callback_mouse_change(dev, b_plug)
 #define UHI_HID_MOUSE_EVENT_BTN_LEFT(b_state)
 #define UHI_HID_MOUSE_EVENT_BTN_RIGHT(b_state)
 #define UHI_HID_MOUSE_EVENT_BTN_MIDDLE(b_state)
 #define UHI_HID_MOUSE_EVENT_MOUVE(x,y,scroll)
+//@}
+/**
+ * Configuration of HID Keyboard interface
+ * @{
+ */
+#define UHI_HID_KEYBOARD_CHANGE(dev,b_plug) my_callback_keyboard_change(dev, b_plug)
 //@}
 //@}
 
 //@}
 
 #include "uhi_hid_mouse.h"
+#include "uhi_hid_keyboard.h"
 
 #endif // _CONF_USB_HOST_H_
