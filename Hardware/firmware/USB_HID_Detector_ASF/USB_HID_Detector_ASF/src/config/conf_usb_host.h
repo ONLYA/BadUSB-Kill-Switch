@@ -58,6 +58,8 @@
 #  define USB_HOST_HS_SUPPORT
 #endif
 
+#include <uhc.h>
+
 /**
  * USB Host callbacks
  * @{
@@ -76,7 +78,9 @@
 //#define UHC_VBUS_ERROR()                    usb_host_vbus_error()
 
 //! To notify that a device has been connected or disconnected.
-//#define UHC_CONNECTION_EVENT(dev,b_present) usb_host_connection_event(dev,b_present)
+void usb_host_connection_event(uhc_device_t* dev, bool b_present);
+#define UHC_CONNECTION_EVENT(dev,b_present) usb_host_connection_event(dev,b_present)
+
 
 //! Called when a USB device or the host have wake up the USB line.
 //#define UHC_WAKEUP_EVENT()                  usb_host_wakeup_event()
@@ -97,10 +101,8 @@
 
 //@}
 
-#include <uhc.h>
+//#include <uhc.h>
 
-bool my_callback_keyboard_change(uhc_device_t* dev, bool b_plug);
-bool my_callback_mouse_change(uhc_device_t* dev, bool b_plug);
 
 /**
  * USB Interface Configuration
@@ -110,7 +112,9 @@ bool my_callback_mouse_change(uhc_device_t* dev, bool b_plug);
  * Configuration of HID Mouse interface
  * @{
  */
+void my_callback_mouse_change(uhc_device_t* dev, bool b_plug);
 #define UHI_HID_MOUSE_CHANGE(dev,b_plug)	my_callback_mouse_change(dev, b_plug)
+
 #define UHI_HID_MOUSE_EVENT_BTN_LEFT(b_state)
 #define UHI_HID_MOUSE_EVENT_BTN_RIGHT(b_state)
 #define UHI_HID_MOUSE_EVENT_BTN_MIDDLE(b_state)
@@ -120,7 +124,9 @@ bool my_callback_mouse_change(uhc_device_t* dev, bool b_plug);
  * Configuration of HID Keyboard interface
  * @{
  */
+void my_callback_keyboard_change(uhc_device_t* dev, bool b_plug);
 #define UHI_HID_KEYBOARD_CHANGE(dev,b_plug) my_callback_keyboard_change(dev, b_plug)
+
 //@}
 //@}
 
