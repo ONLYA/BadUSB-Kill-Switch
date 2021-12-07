@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "BadUSB Killer v2")(type "KiCad")(uri "${KIPRJMOD}/BadUSB Killer v2.pretty")(options "")(descr ""))
+)
